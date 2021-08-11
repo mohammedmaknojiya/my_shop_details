@@ -1,0 +1,31 @@
+.main_container{
+    border-radius: 50px;
+}
+
+.label_style{
+    font-size: 150%;
+    color: cadetblue;
+}
+
+.name_field{
+    display: flex;
+    margin-left: 20px;
+}
+
+.input_style{
+    width: 200px;
+    height: 32px;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.customer_list{
+    width:700px;
+    height:600px; 
+    overflow:auto
+}
+
+.edit_customer{
+    width:450px;
+    height: fit-content;
+}

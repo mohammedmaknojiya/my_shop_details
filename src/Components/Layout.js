@@ -1,20 +1,23 @@
-import React from 'react'
+import React , {useContext} from 'react'
 import CustomerList from './CustomerList'
 import EditCustomer from './EditCustomer'
 import styles from './allCss.module.css'
-import { useSelector } from 'react-redux'
+import { MyContext } from '../App'
 
 const Layout = () => {
-    /** @hook useSelector: fetching list of data in customerList var */
-    const customerList = useSelector(state=> state.delUpdReducer.list_of_data)
 
-    /** mapping customer list to CustomerList component 
+    //creating consumer context
+    const contextRef = useContext(MyContext)
+    //fetching list of data from main list
+    let listOfData = contextRef.mList.list_of_data
+
+    /** mapping list of data to CustomerList component 
      * @param single_customer: details of single customer 
      */
-    const renderList = customerList.map( (single_customer,index) => <CustomerList key={index} single_customer={single_customer} /> );   
+    const renderList = listOfData.map( (single_customer,index) => <CustomerList key={index} single_customer={single_customer} /> );   
 
     return(
-        <>
+        <> 
             <h1 className="bg-primary py-3">Today's Purchase</h1>
             <div className="container py-3 d-flex justify-content-around">
                     {/** render list of users */}

@@ -1,15 +1,19 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import { MyContext } from '../App';
 import styles from './allCss.module.css'
-import { useDispatch } from 'react-redux'
-import { editData,deleteData } from '../redux_files/ActionCreator'
 
 /** 
  * @function CutomerList : render single customer details
  * @param {object} single_customer
  */
 const CustomerList = ({single_customer}) => {
+
     const currentId = single_customer.id;
-    const dispatch = useDispatch()
+    //consumer context
+    const ContextRef = useContext(MyContext)
+    //ref of delete and edit functions
+    const deleteData = ContextRef.delData
+    const editData = ContextRef.edtData
 
     return(
         <div className="px-3 py-1">
@@ -39,7 +43,7 @@ const CustomerList = ({single_customer}) => {
                     @param currentId: id of user for fetching particular record
                     */}
                     <button className="btn btn-primary mx-3 "
-                     onClick={ () => dispatch( editData(currentId) ) }>
+                     onClick={ ()=> editData(currentId) }>
                      Edit Data
                      </button>
 
@@ -48,7 +52,7 @@ const CustomerList = ({single_customer}) => {
                     @param currentId: id of user for fetching particular record for deleting
                      */}
                     <button className="btn btn-primary" 
-                    onClick={()=> dispatch( deleteData(currentId) )} >
+                    onClick={()=> deleteData(currentId)} >
                     Delete Data
                     </button>
                 </div>

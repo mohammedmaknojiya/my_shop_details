@@ -1,20 +1,18 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import styles from './allCss.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { updateData } from '../redux_files/ActionCreator'
+import { MyContext } from '../App'
+
 
 /**
  * @function EditCustomer() : responsible for rendering and updating single record
  */
 const EditCustomer = () => {
-    /** 
-     * @param wholeData : fecth main_list of data from store
-     * @param currentId: extract singleid from main_list respect to edit
-     * @param listOfData: list of user from main_list from store
-     */
-    const wholeData = useSelector( state => state.delUpdReducer )
-    const currentId = wholeData.edit_data_id
-    const listOfData = wholeData.list_of_data
+    //consumer context
+    const ContextRef = useContext(MyContext)
+    const currentId = ContextRef.mList.edit_data_id
+    const listOfData = ContextRef.mList.list_of_data
+    //ref for update data function
+    const updateData = ContextRef.updData
 
     /**
      * @param currentUser: holds single user which needs to update
@@ -23,7 +21,6 @@ const EditCustomer = () => {
         return obj.id === currentId
     } )[0]
 
-    
     /**
      * @param initialObj: initialize single obj using useState() hook 
      * @method setInitialObj: update initialObj on onChange() event
@@ -35,9 +32,8 @@ const EditCustomer = () => {
      */
     useEffect( ()=>{
         setInitialObj({...currentUser})
-    },[currentUser])
+    },[currentUser,currentId])
 
-    const dispatch = useDispatch()
 
     /**
      * @method handleChange() : change initialObj onchange on input fields value
@@ -101,7 +97,7 @@ const EditCustomer = () => {
                 @param userDetails : details enter by user for updating at input
                  */}
                 <button className="btn btn-primary" 
-                onClick={ () => { dispatch( updateData( {id:currentId, userDetails : initialObj} ) )} } >
+                onClick={ () => updateData(currentId,initialObj) } >
                 Update
                 </button>
 
